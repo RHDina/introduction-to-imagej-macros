@@ -129,7 +129,7 @@ function segmentCellEveryFrame(smoothing, quantile, min_area) {
 	Stack.getDimensions(width, height, channels, slices, frames);	
 	for (t = 1; t <= frames; t++) {
 		Stack.setFrame(t);
-		segmentCell(2, 6, 50);				
+		segmentCell(smoothing, quantile, min_area);				
 	}
 	// set the Roi at the right frame by changing their name
 	//for (i = 0; i < roiManager("count"); i++) {

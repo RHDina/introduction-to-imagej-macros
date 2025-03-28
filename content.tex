@@ -3,7 +3,7 @@
 \usepackage{fontspec}
 \usepackage{xunicode}
 \defaultfontfeatures{Mapping=tex-text}
-\setmainfont{Ubuntu} % Main document font
+%\setmainfont{Ubuntu} % Main document font
 \definecolor{skyblue1}{RGB}{114,159,207}
 \definecolor{plum1}{RGB}{173,127,168}
 \definecolor{chameleon1}{RGB}{78,154,6}
@@ -83,7 +83,7 @@
   The objectives of this \only<presentation>{lecture}\only<article>{document} is to
   \begin{itemize}
     \item be able to automatize repetitive tasks,
-    \item enable more quantitative analysis of micoscopy images,
+    \item enable more quantitative analysis of microscopy images,
     \item create reproducible workflows,
     \item become more familiar with programming.
   \end{itemize}
@@ -108,7 +108,7 @@ of this page.
     underlying ImageJ code (API).
     \item Macro language allows you to go beyond clicking around.
     \item You may decide to continue later to script using Python,
-    BeanShell, Clojure or Javascript to be able to perform more
+    BeanShell, Clojure or JavaScript to be able to perform more
     advanced scripts.
     \item Even if in the future you don't use ImageJ macro programming
     language you will learn some basic programming techniques.
@@ -121,7 +121,7 @@ of this page.
   \frametitle<presentation>{Macro basics}
   \begin{itemize}
     \item A \kw{script} is a set of instruction that can be interpreted
-    by the the ImageJ macro interpreter (like in Python \& Basic unlike
+    by the ImageJ macro interpreter (like in Python \& Basic unlike
     C or Java).
     \item A \kw{macro} is a script which has been recorded
     \item It is stored in a text file (.ijm) (not a MS Word document).
@@ -146,10 +146,10 @@ of this page.
   \item Let's open macro editor and select \menu{Language > IJ1 Macro}.
   \item We can write down our first macro:\par
     \lstinputlisting[firstline=3]{macros/mac1.ijm}
-  \item Identify the macro name, the instruction and the curly baces around it.
+  \item Identify the macro name, the instruction and the curly braces around it.
   \item Test the macro using \keys{Run} or \keys{Ctrl+R}
   \item We are now ready to save the macro \menu{File > Save}.
-  \item We can also install it using \menu{Plugin > Macro >
+  \item We can also install it using \menu{Plugins > Macro >
       Install\dots} from the main user interface.
   \end{itemize}
 \end{example}
@@ -161,10 +161,10 @@ of this page.
   \item<1-> Code does not need to look pretty to be
     functional and this code can be executed:\par
     \lstinputlisting[firstline=3]{macros/mac2.ijm}
-  \item<2-> To improve reproduciblilty, reusability and robustness:
+  \item<2-> To improve reproducibility, reusability and robustness:
     \begin{itemize}
       \item document the code using  \textcolor{green!50!black}{/*comments*/} and  \textcolor{green!50!black}{//}
-      \item adapt a consistent formating
+      \item adapt a consistent formatting
       \item split the code into reusable blocks.
       \item include tests on small blocks (unit test) and end to end tests.
       \item think of a way to share the code and licencing
@@ -182,7 +182,7 @@ of this page.
     \item Open the sample blobs.gif \menu{File > Open Sample > Blobs [25K]}
     \item Duplicate the image \menu{Image > Duplicate}
     \item Apply a median filter to the new image \menu{Process > Filters > Median\dots} with radius 2.
-    \item Threshold this image using the auto-threshold \menu{Image > Adjust > Auto threshold}
+    \item Threshold this image using the auto-threshold \menu{Image > Adjust > Auto threshold} and untick "Dark background".
     \item Apply a watershed to split regions \menu{Process > Binary > Watershed}
     \item Define some regions using \menu{Analyze > Analyse Particles\dots} and tick the add to ROI manager box.
     \item Close the mask window (blobs-1.gif)
@@ -198,7 +198,7 @@ of this page.
     \item By clicking on \keys{Create} button, we obtain the following
     macro:\par
     \lstinputlisting[firstline=3]{macros/mac3.ijm}
-    \item How many instruction are there in the macro?
+    \item How many instructions are there in the macro?
     \item How can we make this code more general in order to apply it to
       another image?
   \end{itemize}
@@ -206,17 +206,17 @@ of this page.
 
 \section{Building blocks}
 A programming language is defined by its syntax. We describe some
-elements of it in this section. ImageJ Macro language is a interpreted
-procedurale language whose syntaxe is close to e.g.: C, Java or
-Javascript.
+elements of it in this section. ImageJ Macro language is an interpreted
+procedural language whose syntax is close to e.g.: C, Java or
+JavaScript.
 \subsection{Variable \& Operations}
 \begin{frame}
   \frametitle<presentation>{Variables \& Operations}
   \begin{block}{Variables}
     \begin{itemize}
     \item A \kw{variable} is a symbolic representation associated to a value.
-    \item They can be of serveral \kw{type}: number, string or boolean.
-    \item They have no explicite type (like in Python, unlike C or Java).
+    \item They can be of several \kw{type}: number, string or boolean.
+    \item They have no explicit type (like in Python, unlike C or Java).
     \item When not first declared in a function they are \kw{global}.
     \item Use \kw{var} make it persistent once the macro is installed.
     \item You can \kw{assign} a value to a variable using operator \code{=}.
