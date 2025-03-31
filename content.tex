@@ -65,7 +65,7 @@
 %\newtheorem{example}{Example:}
 \setcounter{tocdepth}{1}
 \title{Introduction to ImageJ Macros}
-\author{J\'er\^ome Boulanger}
+\author{Dina Ratsimandresy (rhdina@) \\ Qimeng Wu (qwu@) \\ J\'er\^ome Boulanger (jeromeb@)}
 \date{}
 \begin{document}
 \begin{frame}
@@ -549,6 +549,37 @@ Reference information on ROI is located
 	\end{example}
 \end{frame}
 
+\begin{frame}[fragile]
+	\begin{example}[Extra exercise with plugin installation]~\par
+		The Zeiss1328.lsm is a data with four channels with Ch1: Golgi marker GM130, Ch2: cargo protein, Ch3: mitochondria and Ch4: nuclei marked with DAPI. It was acquired for an experiment that consists of measuring the colocalization between a cargo protein and a Golgi marker and the cargo protein. \vspace{0.15cm}
+		
+		To do this measurement, one first needs to:
+		\begin{itemize}
+			\item Segment the cell regions using either Ch1 or Ch2.
+			\item If a simple thresholding or watershed is not working, a marker-controlled watershed segmentation is required using the nuclei ROIs as markers.
+			\item An installation of an appropriate plugin will be required: \menu{Help > Update > Manage Update Sites}. We will need the plugin \kw{''MorphoLibJ"} which is in the ''IJPB-plugins".
+			\item Segment the cell using the marker-controlled watershed segmentation in ''MorphoLibJ".
+		\end{itemize}
+	\end{example}
+\end{frame}
+
+\section{Day separator}
+\begin{frame}[fragile]
+	\kw{End of Day 1.}
+\end{frame}
+
+\begin{frame}[fragile]
+	\kw{Day 2.}
+	\begin{itemize}
+		\item String and path name manipulations
+		\item User interaction
+		\item Images \& Windows
+		\item Batch processing
+		\item Calling another macro
+		\item Overlays
+		\item Saving the results
+	\end{itemize}
+\end{frame}
 
 \section{Strings}
 
