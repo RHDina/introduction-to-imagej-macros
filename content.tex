@@ -366,7 +366,7 @@ do {
 			\item include tests on small blocks (unit test) and end to end tests.
 			\item think of a way to share the code and licencing
 		\end{itemize}
-		\item<3-> Exercise: use these knowledge to improve the readibity of the mac\_game script. \\ \kw{Hint}: an instruction always terminates with a semi-colon (\kw{!}).
+		\item<3-> Exercise: use these knowledge to improve the readibity of the mac\_game script. \\ \kw{Hint}: an instruction always terminates with a semi-colon (\kw{;}).
 	\end{itemize}
 \end{frame}
 
@@ -504,7 +504,7 @@ Reference information on ROI is located
 		\item The number of ROI is given by \code{N = roiManager("count");}
 		\item the index of the current ROI is given by \code{index = roiManager("index");}
 		\item you can select several ROI using \code{roiManager("select", indices);} where indices is an array.
-		\item Indices are between 0 and N.
+		\item Indices are between 0 and N-1.
 		\item A good idea for function creating ROIs is to return an array of the ROIs.
 		\item For example to loop over the ROI and print their type, we
 		can use the following macro:\par
@@ -529,7 +529,7 @@ Reference information on ROI is located
 	\begin{example}[Measurements]~\par
 		\begin{itemize}
 			\item We will use the nuclei ROIs of the Zeiss1328.lsm we had before in this exercise. Re-segment the nuclei if the roimanager is now closed.
-			\item Use the following macro to messure the centroid of the ROIs:\par
+			\item Use the following macro to measure the centroid of the ROIs:\par
 			\lstinputlisting[firstline=3]{macros/mac26.ijm}
 			\item Add some more measurements to the table by editing the macro.
 			\item How can you change the code to add the measurement of the mean intensity per nuclei in each channel? (\kw{Hint:} Use \kw{nSlices} to count the number of channels.)
@@ -543,43 +543,53 @@ Reference information on ROI is located
 			\item It is important to manually check back the result to ensure the measurement is done on the right channel and on the right ROI.
 			\item The result default table is named ``Results" and a measurement will be by default appended into this table or overwrites the existing result on it.
 			\item Avoid this by create a new table for a given measurement:\par
-			\lstinputlisting[firstline=3]{macros/mac26_update.ijm}
-			\item Check the result in the new table and change the code to add the ROI label.
+			\lstinputlisting[firstline=1]{macros/mac26_update.ijm}
 		\end{itemize}
 	\end{example}
 \end{frame}
 
 \begin{frame}[fragile]
-	\begin{example}[Extra exercise with plugin installation]~\par
-		The Zeiss1328.lsm is a data with four channels with Ch1: Golgi marker GM130, Ch2: cargo protein, Ch3: mitochondria and Ch4: nuclei marked with DAPI. It was acquired for an experiment that consists of measuring the colocalization between a cargo protein and a Golgi marker and the cargo protein. \vspace{0.15cm}
-		
-		To do this measurement, one first needs to:
+	\begin{example}[Measurement table]~\par
 		\begin{itemize}
-			\item Segment the cell regions using either Ch1 or Ch2.
-			\item If a simple thresholding or watershed is not working, a marker-controlled watershed segmentation is required using the nuclei ROIs as markers.
-			\item An installation of an appropriate plugin will be required: \menu{Help > Update > Manage Update Sites}. We will need the plugin \kw{''MorphoLibJ"} which is in the ''IJPB-plugins".
-			\item Segment the cell using the marker-controlled watershed segmentation in ''MorphoLibJ".
+			\item Check the result in the new table.
+			\item Change the code to add the ROI label into the table.
+			\item Convert the code into a function that takes as input the name of the file on which the measurement is done and the name of the table.
+			\item Add the file name into the table inside of the function.
 		\end{itemize}
 	\end{example}
 \end{frame}
 
-\section{Day separator}
-\begin{frame}[fragile]
-	\kw{End of Day 1.}
-\end{frame}
+%\begin{frame}[fragile]
+%	\begin{example}[Extra exercise with plugin installation]~\par
+%		The Zeiss1328.lsm is a data with four channels with Ch1: Golgi marker GM130, Ch2: cargo protein, Ch3: mitochondria and Ch4: nuclei marked with DAPI. It was acquired for an experiment that consists of measuring the colocalization between a cargo protein and a Golgi marker and the cargo protein. \vspace{0.15cm}
+%		
+%		To do this measurement, one first needs to:
+%		\begin{itemize}
+%			\item Segment the cell regions using either Ch1 or Ch2.
+%			\item If a simple thresholding or watershed is not working, a marker-controlled watershed segmentation is required using the nuclei ROIs as markers.
+%			\item An installation of an appropriate plugin will be required: \menu{Help > Update > Manage Update Sites}. We will need the plugin \kw{''MorphoLibJ"} which is in the ''IJPB-plugins".
+%			\item Segment the cell using the marker-controlled watershed segmentation in ''MorphoLibJ".
+%		\end{itemize}
+%	\end{example}
+%\end{frame}
 
-\begin{frame}[fragile]
-	\kw{Day 2.}
-	\begin{itemize}
-		\item String and path name manipulations
-		\item User interaction
-		\item Images \& Windows
-		\item Batch processing
-		\item Calling another macro
-		\item Overlays
-		\item Saving the results
-	\end{itemize}
-\end{frame}
+%\section{Day separator}
+%\begin{frame}[fragile]
+%	\kw{End of Day 1.}
+%\end{frame}
+%
+%\begin{frame}[fragile]
+%	\kw{Day 2.}
+%	\begin{itemize}
+%		\item String and path name manipulations
+%		\item User interaction
+%		\item Images \& Windows
+%		\item Batch processing
+%		\item Calling another macro
+%		\item Overlays
+%		\item Saving the results
+%	\end{itemize}
+%\end{frame}
 
 \section{Strings}
 
