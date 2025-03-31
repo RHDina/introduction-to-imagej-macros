@@ -1,11 +1,13 @@
-// Example - Using the Macro recorder
+// check if a variable local or global
+ print("\\Clear");
+my_variable = 3;
+print("Before:", my_variable);
 
-run("Blobs (25K)");
-run("Duplicate...", " ");
-run("Median...", "radius=2");
-run("Auto Threshold", "method=Default");
-run("Watershed");
-run("Analyze Particles...", "add");
-close();
-run("Set Measurements...", "area mean redirect=None decimal=9");
-roiManager("Measure");
+function overWrite() { 
+	// attribute a value 5 to my_variable
+	my_variable = 5;
+}
+
+// run the overWrite function
+overWrite()
+print("After:", my_variable);

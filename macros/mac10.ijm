@@ -12,6 +12,9 @@ function image2Array() {
 }
 
 print("\\Clear");
-run("Blobs (25K)");
+selectImage("Zeiss1328.lsm");
+run("Duplicate...", "title=nuclei duplicate channels=4");
 a = image2Array();
 Array.print(a);
+selectImage("nuclei");
+close;

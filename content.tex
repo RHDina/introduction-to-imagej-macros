@@ -130,8 +130,6 @@ of this page.
       be grouped inside a pair of curly braces.
     \item Instruction starting with \verb$//$ or between \verb$/* */$
       are \kw{comments} (not interpreted).
-    \item You can create and edit macros from the macro editor
-      \menu{File > New > Script} or press \keys{[}).
     \item To be able to install a macro you need to use the syntax:
       \begin{minipage}{5cm}
         \verb$   macro "name [shortcut]" { instructions; } $
@@ -143,33 +141,17 @@ of this page.
 \begin{frame}[fragile]
   \begin{example}[Hello World]~\par
   \begin{itemize}
-  \item Let's open macro editor and select \menu{Language > IJ1 Macro}.
-  \item We can write down our first macro:\par
+   \item Create a new macro
+  \menu{File > New > Script} or \menu{Plugins > New > Macro} or press \keys{[}) and select \menu{Language > ImageJ Macro}.
+  \item Write down the first macro:\par
     \lstinputlisting[firstline=3]{macros/mac1.ijm}
-  \item Identify the macro name, the instruction and the curly braces around it.
+  \item Identify the macro name, the instructions and the curly braces around it.
   \item Test the macro using \keys{Run} or \keys{Ctrl+R}
-  \item We are now ready to save the macro \menu{File > Save}.
-  \item We can also install it using \menu{Plugins > Macro >
+  \item Save the macro using \menu{File > Save}.
+  \item Install it using \menu{Plugins > Macro >
       Install\dots} from the main user interface.
   \end{itemize}
 \end{example}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle<presentation>{Best practices}
-  \begin{itemize}
-  \item<1-> Code does not need to look pretty to be
-    functional and this code can be executed:\par
-    \lstinputlisting[firstline=3]{macros/mac2.ijm}
-  \item<2-> To improve reproducibility, reusability and robustness:
-    \begin{itemize}
-      \item document the code using  \textcolor{green!50!black}{/*comments*/} and  \textcolor{green!50!black}{//}
-      \item adapt a consistent formatting
-      \item split the code into reusable blocks.
-      \item include tests on small blocks (unit test) and end to end tests.
-      \item think of a way to share the code and licencing
-    \end{itemize}
-  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -179,15 +161,16 @@ of this page.
   \item Let's try to segment an image and measure intensities in the
     regions of interest defined by the mask:
     \begin{enumerate}
-    \item Open the sample blobs.gif \menu{File > Open Sample > Blobs [25K]}
-    \item Duplicate the image \menu{Image > Duplicate}
-    \item Apply a median filter to the new image \menu{Process > Filters > Median\dots} with radius 2.
-    \item Threshold this image using the auto-threshold \menu{Image > Adjust > Auto threshold} and untick "Dark background".
-    \item Apply a watershed to split regions \menu{Process > Binary > Watershed}
-    \item Define some regions using \menu{Analyze > Analyse Particles\dots} and tick the add to ROI manager box.
-    \item Close the mask window (blobs-1.gif)
-    \item Set the measurments in \menu{Analyze > Set Measurements\dots}
-    \item On the ROI Manager select \menu{Measure}
+    \item Open the sample Zeiss1328.lsm \menu{File > Open > ../Zeiss1328.lsm}
+    \item Duplicate the nuclei channel using  \menu{Image > Duplicate}, tick ``Duplicate hyperstack", set ``Channels (c)" to 4 and give the new window a name ``nuclei".
+    \item Apply a Gaussian blur of radius 3 to the new image \menu{Process > Filters > Gaussian Blur\dots}.
+    \item Threshold this image using the auto-threshold \menu{Image > Adjust > Auto threshold}, choose ``Mean" thresholding method and click ``Apply" to obtain a mask.
+    \item Fill the holes \menu{Process > Binary > Fill Holes}.
+    \item Apply a watershed to split regions \menu{Process > Binary > Watershed}.
+    \item Define region of interests using \menu{Analyze > Analyse Particles\dots}, tick the add to ROI manager box and choose the appropiate size e.g. 3-Infinity.
+    \item Close the mask window (nuclei).
+    \item Set the measurments in \menu{Analyze > Set Measurements\dots}.
+    \item On the ROI Manager select \menu{Measure}.
     \end{enumerate}
   \end{itemize}
 \end{frame}
@@ -197,7 +180,7 @@ of this page.
   \begin{itemize}
     \item By clicking on \keys{Create} button, we obtain the following
     macro:\par
-    \lstinputlisting[firstline=3]{macros/mac3.ijm}
+    \lstinputlisting[firstline=1]{macros/mac2.ijm}
     \item How many instructions are there in the macro?
     \item How can we make this code more general in order to apply it to
       another image?
@@ -217,11 +200,31 @@ JavaScript.
     \item A \kw{variable} is a symbolic representation associated to a value.
     \item They can be of several \kw{type}: number, string or boolean.
     \item They have no explicit type (like in Python, unlike C or Java).
-    \item When not first declared in a function they are \kw{global}.
-    \item Use \kw{var} make it persistent once the macro is installed.
+    %\item When not first declared in a function they are \kw{global}.
+    %\item Use \kw{var} make it persistent once the macro is installed.
+    \item A variable is \kw{local} if it is only accessed within the sub-program it has been declared or created within.
+    \item A variable is \kw{global} if it is accessed by any sub-program or module.
     \item You can \kw{assign} a value to a variable using operator \code{=}.
     \end{itemize}
   \end{block}\only<presentation>{\vspace{-.3cm}}
+   \end{frame}
+   
+   \begin{frame}
+   	\frametitle<presentation>{Variable}
+   	\begin{example}[Variable assignement]
+   		\begin{itemize}
+   			\item Create a new macro with a simple function that can overwrite the value assigned to a variable.\par
+   			\lstinputlisting[firstline=1]{macros/mac3.ijm}
+   			\item Run the macro and observe the result printed on the log file.
+   			\item Now tick the parameter ``REPL" (Read–Eval–Print Loop) and observe the printed result on the log. Which of the two options lead to a global and local variable? 
+   			\item We'll keep REPL unticked for the rest of the course.
+   		\end{itemize}
+   	\end{example}
+   \end{frame}
+   
+   
+  \begin{frame}
+  	\frametitle<presentation>{Operations}
   \begin{block}{Operations}
     \begin{itemize}
     \item Usual operations on number are valid (\code{+},\code{-},\code{*},\code{/}).
@@ -282,7 +285,7 @@ JavaScript.
 
 \begin{frame}
   \frametitle<presentation>{Operations}
-  \begin{example}[Operations on number \& boolean.]~\par
+  \begin{example}[Operations on number \& boolean]~\par
     \lstinputlisting[firstline=3]{macros/mac4.ijm}
   \end{example}
 \end{frame}
@@ -347,6 +350,24 @@ do {
   \begin{example}[Loops]~\par
     \lstinputlisting[firstline=3]{macros/mac6.ijm}
   \end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle<presentation>{Best practices}
+	\begin{itemize}
+		\item<1-> Code does not need to look pretty to be
+		functional and this code can be executed:\par
+		\lstinputlisting[firstline=3]{macros/mac_game.ijm}
+		\item<2-> To improve reproducibility, reusability and robustness:
+		\begin{itemize}
+			\item document the code using  \textcolor{green!50!black}{/*comments*/} and  \textcolor{green!50!black}{//}
+			\item adapt a consistent formatting
+			\item split the code into reusable blocks.
+			\item include tests on small blocks (unit test) and end to end tests.
+			\item think of a way to share the code and licencing
+		\end{itemize}
+		\item<3-> Exercise: use these knowledge to improve the readibity of the mac\_game script. \\ \kw{Hint}: an instruction always terminates with a semi-colon (\kw{!}).
+	\end{itemize}
 \end{frame}
 
 \subsection{Arrays}
@@ -454,10 +475,80 @@ function functionName (parameters1, parameter2) {
       \code{getWidth} used to get the image dimensions as well as the
       function \code{getPixel(x, y)} to read the pixel value.
     \item Combine the two last examples to compute the median value of
-      the pixel of the image.
+      the pixel of the nuclei channel in the Zeiss1328.lsm image.
     \end{itemize}
   \end{example}
 \end{frame}
+
+\section{ROI Manager}
+Reference information on ROI is located
+\href{http://rsb.info.nih.gov/ij/developer/macro/functions.html#Roi}{here}.
+\begin{frame}[fragile]
+	\frametitle<presentation>{ROI manager}
+	\begin{itemize}
+		\item You can interact with the ROI Manager using the function
+		\code{roiManager(cmd);} where \code{cmd} can be "Add", "Add \&
+		Draw", "Update", "Delete", "Deselect", "Measure", "Draw", "Fill",
+		"Label", "Combine", "Split", "Sort", "Reset", "Multi Measure",
+		"AND", "OR", "Multi Plot", "Show All", "Show None", "Show all with
+		labels", "Show all without labels" or "Remove Slice Info".
+		\item The ROI manager runs faster in batch mode. In a macro start
+		by closing the Roi Manager:
+		\lstinputlisting[firstline=3]{macros/mac24.ijm}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle<presentation>{ROI selection}
+	\begin{itemize}
+		\item The number of ROI is given by \code{N = roiManager("count");}
+		\item the index of the current ROI is given by \code{index = roiManager("index");}
+		\item you can select several ROI using \code{roiManager("select", indices);} where indices is an array.
+		\item Indices are between 0 and N.
+		\item A good idea for function creating ROIs is to return an array of the ROIs.
+		\item For example to loop over the ROI and print their type, we
+		can use the following macro:\par
+		\lstinputlisting[firstline=3]{macros/mac25.ijm}
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+	\frametitle<presentation>{ROI Measures}
+	\begin{itemize}
+		\item Once ROI are defined we can measure quantities such as mean, min, max, centroid position etc.
+		\item To get the name of the possible measurement make a small test ticking the desired measurements in the \menu{Analyze > Set Measurements} dialog.
+		\item Using a macro, you can define quantities for the ROIs that are not
+		available from the standard measurement.
+		\item You can use \code{getValue()} to access measurements using the names
+		of the columns of the measurement table.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\begin{example}[Measurements]~\par
+		\begin{itemize}
+			\item We will use the nuclei ROIs of the Zeiss1328.lsm we had before in this exercise. Re-segment the nuclei if the roimanager is now closed.
+			\item Use the following macro to messure the centroid of the ROIs:\par
+			\lstinputlisting[firstline=3]{macros/mac26.ijm}
+			\item Add some more measurements to the table by editing the macro.
+			\item How can you change the code to add the measurement of the mean intensity per nuclei in each channel? (\kw{Hint:} Use \kw{nSlices} to count the number of channels.)
+		\end{itemize}
+	\end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+	\begin{example}[Measurement table]~\par
+		\begin{itemize}
+			\item It is important to manually check back the result to ensure the measurement is done on the right channel and on the right ROI.
+			\item The result default table is named ``Results" and a measurement will be by default appended into this table or overwrites the existing result on it.
+			\item Avoid this by create a new table for a given measurement:\par
+			\lstinputlisting[firstline=3]{macros/mac26_update.ijm}
+			\item Check the result in the new table and change the code to add the ROI label.
+		\end{itemize}
+	\end{example}
+\end{frame}
+
 
 \section{Strings}
 
@@ -752,64 +843,6 @@ Reference information on files is located
     \code{Stack.setPosition(c,z,t);} to set the position in the
     hyper-stack.
   \end{itemize}
-\end{frame}
-
-\section{ROI Manager}
-Reference information on ROI is located
-\href{http://rsb.info.nih.gov/ij/developer/macro/functions.html#Roi}{here}.
-\begin{frame}[fragile]
-  \frametitle<presentation>{ROI manager}
-  \begin{itemize}
-   \item You can interact with the ROI Manager using the function
-     \code{roiManager(cmd);} where \code{cmd} can be "Add", "Add \&
-     Draw", "Update", "Delete", "Deselect", "Measure", "Draw", "Fill",
-     "Label", "Combine", "Split", "Sort", "Reset", "Multi Measure",
-     "AND", "OR", "Multi Plot", "Show All", "Show None", "Show all with
-     labels", "Show all without labels" or "Remove Slice Info".
-   \item The ROI manager runs faster in batch mode. In a macro start
-     by closing the Roi Manager:
-     \lstinputlisting[firstline=3]{macros/mac24.ijm}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle<presentation>{ROI selection}
-  \begin{itemize}
-    \item The number of ROI is given by \code{N = roiManager("count");}
-    \item the index of the current ROI is given by \code{index = roiManager("index");}
-    \item you can select several ROI using \code{roiManager("select", indices);} where indices is an array.
-    \item Indices are between 0 and N.
-    \item A good idea for function creating ROIs is to return an array of the ROIs.
-    \item For example to loop over the ROI and print their type, we
-       can use the following macro:\par
-       \lstinputlisting[firstline=3]{macros/mac25.ijm}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle<presentation>{ROI Measures}
-  \begin{itemize}
-  \item Once ROI are defined we can measure quantities such as mean,
-    min, max, centroid position etc.
-  \item To get the name of the possible measurement make a small test
-    ticking the desired measurements in the \menu{Analyze > Set
-      Measurements} dialog.
-  \item Using a macro, you can define quantities for the ROIs that are not
-    available from the standard measurement.
-  \item You can use \code{getValue()} to access measurements using the names
-    of the columns of the measurement table.
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-  \begin{example}[Measurements]~\par
-    \begin{itemize}
-    \item Create/Open an image and draw some ROIs.
-    \item Use the following macro to messure the centroid of the ROIs:\par
-      \lstinputlisting[firstline=3]{macros/mac26.ijm}
-    \item Add some more measurements to the table by editing the macro.
-    \end{itemize}
-  \end{example}
 \end{frame}
 
 \section{Overlays}
