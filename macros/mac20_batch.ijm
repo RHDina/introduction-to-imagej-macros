@@ -1,6 +1,19 @@
-//@File(label="input") path
+//@ File (label = "Select the folder", style = "directory") folder
 //@Integer(label="sigma") sigma
 //@String(label="Threshold", choices={"Default","Otsu", "Mean"}) threshold
+
+list = getFileList(folder);
+processFolder(folder, list);
+
+// Process files in a folder
+function processFolder(folder, list) {
+	for (i = 0; i < list.length; i++) {
+		path = folder + File.separator + list[i];
+		open(path);
+		image_id = getImageID();
+		segmentNuclei(image_id, sigma, threshold);
+	}
+}
 
 function segmentNuclei(image_id, sigma, threshold) { 
 	selectImage(image_id);
@@ -20,6 +33,4 @@ function segmentNuclei(image_id, sigma, threshold) {
 	roiManager("Measure");
 }
 
-open(path);
-image_id = getImageID();
-segmentNuclei(image_id, sigma, threshold);
+

@@ -12,6 +12,7 @@ function appendToFilename(filename, str) {
 	}
 }
 
-input = "3D_Stack.TIF";
-output = appendToFilename(input, "_deconv");
+input = "Zeiss1328.lsm";
+output = appendToFilename(input, "_result1");
 print("Input: " + input + "\nOutput: " + output);
+

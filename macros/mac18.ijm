@@ -1,5 +1,5 @@
 // Example - User interaction (wait for User)
 
-setTool(1); // select the circle tool
-waitForUser("Please draw a circle");
-run("Cut"); // cut the image
+setTool("polygon"); // select the polygon tool
+waitForUser("Please draw the ROI");
+roiManager("Add"); // add it to the ROI Manager

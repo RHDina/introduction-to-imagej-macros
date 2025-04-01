@@ -655,16 +655,38 @@ Operation on strings enable to append, extract and test the content of strings.
     \item \code{startsWith(string, prefix)} and \code{endsWith(string,
         suffix)} test if a string starts / ends with the given prefix or
       suffix.
+    \item To list the files in a directory you can use the function
+      \code{list = getFileList(myDir);} which return an array of
+      filenames (strings) located in the folder myDir. It is then
+      possible to loop over the items in the array.
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
+	\begin{example}[Working with strings]~\par
+		In this example, we firstly want to get familiar with string manipulation and filenames.
+		\begin{itemize}
+			\item Choose a filename with a given extension as simple or as complex as you want or choose the name of one of the files in the data folder and attribute it to a variable named ``filename".
+			\begin{itemize}
+				\item Test the function \code{lengthOf} on the filename of your choice.
+				\item Use \code{lastIndexOf} to determine where the extension starts in the string and use \code{substring} to get the file extension and the base name of the file of your interest.
+				\item Now test the function \code{endsWith} whether another filename is with the same extension or not
+			\end{itemize}
+			\item Attribute the directory of the data folder to a variable ``myDir"
+			\item Use \code{getFileList} to list all the files you have in this folder and use \code{Array.print} to print them on the log window.
+			\item Write a loop function that goes through each of the listed file and print the file name if it is NOT ending with ``.lsm".
+		\end{itemize}
+	\end{example}
+\end{frame}
+
+
+\begin{frame}[fragile]
   \begin{example}[Append to filename]~\par
     \begin{itemize}
-    \item In this example, we define a function to append a tag to the
-      filename in order for example to create a meaningfull output
-      filename.~\par
+    \item Now let's assume we have processed one file and we want to save the file with a name that still has the filename but with another string to indicate this change.
+    \item We will write a function that can append a string after the filename and before the extension of the filename.~\par
       \lstinputlisting[firstline=3,lastline=14]{macros/mac12.ijm}
+      \item How can we change this code to generate a file name with a different extension such as a csv?
     \end{itemize}
   \end{example}
 \end{frame}
@@ -758,30 +780,20 @@ Operation on strings enable to append, extract and test the content of strings.
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
-  \begin{example}[Adding parameters]~\par
-    \begin{itemize}
-    \item Modify the macro mac3.ijm to add 3 parameters (filename, radius,
-      object area) using the 1st and 2nd approach.
-    \end{itemize}
-    \lstinputlisting{macros/mac19.ijm}
-  \end{example}
-\end{frame}
-
 \section{Images \& Windows}
-\begin{frame}
-  \frametitle{Images \& Windows}
-  \begin{itemize}
-  \item \code{newImage(title, type, width, height, depth)} creates a new
-    image. Where the type can be "8-bit", "16-bit", "32-bit" or
-    "RGB". It can also contain the parameters “white", "black" or
-    "ramp" as a filling value.
-  \item During the execution of a macro you can \code{setBatchMode(true)} to
-    hide the images during the processing. The execution is then up to
-    20 times faster. \code{setBatchMode(false)} at the end of the script
-    displays the active image and deletes the other ones.
-  \end{itemize}
-\end{frame}
+%\begin{frame}
+%  \frametitle{Images \& Windows}
+%  \begin{itemize}
+%  \item \code{newImage(title, type, width, height, depth)} creates a new
+%    image. Where the type can be "8-bit", "16-bit", "32-bit" or
+%    "RGB". It can also contain the parameters “white", "black" or
+%    "ramp" as a filling value.
+%  \item During the execution of a macro you can \code{setBatchMode(true)} to
+%    hide the images during the processing. The execution is then up to
+%    20 times faster. \code{setBatchMode(false)} at the end of the script
+%    displays the active image and deletes the other ones.
+%  \end{itemize}
+%\end{frame}
 
 \begin{frame}
   \frametitle{Images \& Windows}
@@ -802,12 +814,12 @@ Operation on strings enable to append, extract and test the content of strings.
 
 \begin{frame}[fragile]
   \begin{example}[Using image identifier]~\par
-    \begin{itemize}
-    \item Modify the macro mac16.ijm using \code{getImageID()}.
-    \item Make a function of this code and test it on blob.gif.
-    \end{itemize}
-    \lstinputlisting[firstline=3]{macros/mac20.ijm}
-  \end{example}
+	    \begin{itemize}
+		    \item Modify the macro mac2.ijm using \code{getImageID()}.
+		    \item Make a function that takes as an arugment the image id, sigma and threshold and test it on Zeiss1328.lsm.
+		    \end{itemize}
+	    \lstinputlisting[firstline=1]{macros/mac19.ijm}
+	  \end{example}
 \end{frame}
 
 \section{File \& Directories}
@@ -817,27 +829,45 @@ Reference information on files is located
   \frametitle<presentation>{File \& Directories}
   \begin{itemize}
   \item \code{open(path)} opens an image, a ROI or a text file.
-  \item To list the files in a directory you can use the function
-    \code{list = getFileList(myDir);} which return an array of
-    filenames (strings) located in the folder myDir. It is then
-    possible to loop over the items in the array.
-  \item Looping over files in a directory will allow you to perform
-    batch processing.  However, there exist a set of tools performing
-    simple batch processing in the \menu{Process > Batch}. You can
-    then write a script for an image and apply it to a set of files in
-    given a folder.
+  \item \code{list = getFileList(myDir);} returns an array of
+    filenames (strings) located in the folder myDir.
+  \item There exist a set of tools performing
+    simple batch processing in the \menu{Process > Batch}. You can write a script for an image and apply it to a set of files in given a folder.
   \item To handle both MS Windows and Mac OS/Unix path names, use
     \code{path = folder\_name + File.separator + filename;}.
+     \item During the execution of a macro you can \code{setBatchMode(true)} to hide the images during the processing. The execution is then up to
+    20 times faster. \code{setBatchMode(false)} at the end of the script
+    displays the active image and deletes the other ones.
   \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\begin{example}[Adding parameters]~\par
+		\begin{itemize}
+			\item Modify mac19.ijm to add user input of the file directory, sigma, threshold.
+		\end{itemize}
+		\lstinputlisting{macros/mac20.ijm}
+	\end{example}
 \end{frame}
 
 \begin{frame}
   \begin{example}[Folder batch processing]~\par
     \begin{itemize}
-    \item Let's try to reproduce the \menu{Process > Batch \dots} functionnality.
+    \item To reproduce the \menu{Process > Batch \dots} functionnality.
       \lstinputlisting[firstline=3]{macros/mac21.ijm}
+     \item How can we change the code we have so far to now batch process all the images that have lsm extension in the data folder? 
     \end{itemize}
   \end{example}
+\end{frame}
+
+\begin{frame}
+	\begin{example}[Folder batch processing]~\par
+		\begin{itemize}
+			\item Use the idea in mac21.ijm to batch process the files in our data folder and modify mac20.ijm.
+			\item The code can changed to only process the lsm files, \code{setBatchMode(true)} to hide processing in the background, close the ROI manager at the end of the processing of each file, customize the measurement and add the file name into the resulting table, etc.
+			\lstinputlisting[firstline=1]{macros/mac20_batch.ijm}
+		\end{itemize}
+	\end{example}
 \end{frame}
 
 \begin{frame}
@@ -886,70 +916,70 @@ Reference information on files is located
   \end{itemize}
 \end{frame}
 
-\section{Overlays}
-You will find references on overlays
-\href{http://rsb.info.nih.gov/ij/developer/macro/functions.html#Overlay}{here}.
-\begin{frame} \frametitle<presentation>{Overlays}
-  \begin{itemize}
-  \item Non destructive overlays allows to add annotations on the
-    image.
-  \item They can be saved in the TIFF file or exported (Flatten) in
-    RGB jpg or PNG.
-  \item Basic drawing functions are
-    \begin{itemize}
-    \item \code{Overlay.drawLine(x0, y0, x1, y1);} to draw a line
-    \item \code{Overlay.drawEllipse(x0, y0, x1, y1);} to draw an ellipse
-    \item \code{Overlay.drawString(text, x,y);} to draw some text
-    \end{itemize}
-  \item \only<article>{You can use}\code{ run("Add Selection...",
-      "stroke=red width=2");}\only<article>{to} converts a selection
-    to an overlay.
-  \item Before adding overlays, one can clear the current overlays
-    using \code{Overlay.remove;}.
-  \item Once the overlay are drawn they might not be visible as one
-    need to refresh the display using \code{Overlay.show();}
-  \item When the image is a stack, one can specify the position of the
-    overlay using \code{Overlay.setPosition(i);}
-  \end{itemize}
-\end{frame}
+%\section{Overlays}
+%You will find references on overlays
+%\href{http://rsb.info.nih.gov/ij/developer/macro/functions.html#Overlay}{here}.
+%\begin{frame} \frametitle<presentation>{Overlays}
+%  \begin{itemize}
+%  \item Non destructive overlays allows to add annotations on the
+%    image.
+%  \item They can be saved in the TIFF file or exported (Flatten) in
+%    RGB jpg or PNG.
+%  \item Basic drawing functions are
+%    \begin{itemize}
+%    \item \code{Overlay.drawLine(x0, y0, x1, y1);} to draw a line
+%    \item \code{Overlay.drawEllipse(x0, y0, x1, y1);} to draw an ellipse
+%    \item \code{Overlay.drawString(text, x,y);} to draw some text
+%    \end{itemize}
+%  \item \only<article>{You can use}\code{ run("Add Selection...",
+%      "stroke=red width=2");}\only<article>{to} converts a selection
+%    to an overlay.
+%  \item Before adding overlays, one can clear the current overlays
+%    using \code{Overlay.remove;}.
+%  \item Once the overlay are drawn they might not be visible as one
+%    need to refresh the display using \code{Overlay.show();}
+%  \item When the image is a stack, one can specify the position of the
+%    overlay using \code{Overlay.setPosition(i);}
+%  \end{itemize}
+%\end{frame}
+%
+%\begin{frame}[fragile]
+%  \begin{example}[Add a scale bar and timer]~\par
+%    \begin{itemize}
+%    \item In this example, we want to add a timer and a scale bar to
+%      all frames of the image stack (You may want to use \code{getVoxelSize(width, height, depth, unit)} and \code{Stack.getFrameInterval()} to get the pixel size and time interval).
+%       \only<presentation>{\lstinputlisting[lastline=18]{macros/mac27.ijm}}
+%       \only<article>{\lstinputlisting{macros/mac27.ijm}}
+%    \end{itemize}
+%  \end{example}
+%\end{frame}
+%
+%
+%\section{Calling another macro}
+%
+%\begin{frame}
+%  \frametitle<presentation>{Calling another macro}
+%  \begin{itemize}
+%  \item To call another macro we can use \code{runMacro(name, arguments)}
+%  \only<article>{\lstinputlisting{macros/mac28.ijm}}
+%  \item Arguments is a string that fill be retreived by \code{getArguments()}, that
+%    we need to parse manually.
+%  \item Here is a generic way to perform this whilst having script parameters:
+%  \only<article>{\lstinputlisting{macros/mac29.ijm}}
+%  \only<presentation>{\lstinputlisting[firstline=7]{macros/mac29.ijm}}
+%\end{itemize}
+%\end{frame}
 
-\begin{frame}[fragile]
-  \begin{example}[Add a scale bar and timer]~\par
-    \begin{itemize}
-    \item In this example, we want to add a timer and a scale bar to
-      all frames of the image stack (You may want to use \code{getVoxelSize(width, height, depth, unit)} and \code{Stack.getFrameInterval()} to get the pixel size and time interval).
-       \only<presentation>{\lstinputlisting[lastline=18]{macros/mac27.ijm}}
-       \only<article>{\lstinputlisting{macros/mac27.ijm}}
-    \end{itemize}
-  \end{example}
-\end{frame}
-
-
-\section{Calling another macro}
-
-\begin{frame}
-  \frametitle<presentation>{Calling another macro}
-  \begin{itemize}
-  \item To call another macro we can use \code{runMacro(name, arguments)}
-  \only<article>{\lstinputlisting{macros/mac28.ijm}}
-  \item Arguments is a string that fill be retreived by \code{getArguments()}, that
-    we need to parse manually.
-  \item Here is a generic way to perform this whilst having script parameters:
-  \only<article>{\lstinputlisting{macros/mac29.ijm}}
-  \only<presentation>{\lstinputlisting[firstline=7]{macros/mac29.ijm}}
-\end{itemize}
-\end{frame}
-
-\section{Tables}
-\begin{frame}[fragile]
-  \frametitle<presentation>{Table}
-  \begin{itemize}
-  \item The result table can get populated by error.
-  \item You might need more than one table to store the results.
-  \end{itemize}
-  \only<article>{\lstinputlisting{macros/mac30.ijm}}
-  \only<presentation>{\lstinputlisting[firstline=19,lastline=42]{macros/mac30.ijm}}
-\end{frame}
+%\section{Tables}
+%\begin{frame}[fragile]
+%  \frametitle<presentation>{Table}
+%  \begin{itemize}
+%  \item The result table can get populated by error.
+%  \item You might need more than one table to store the results.
+%  \end{itemize}
+%  \only<article>{\lstinputlisting{macros/mac30.ijm}}
+%  \only<presentation>{\lstinputlisting[firstline=19,lastline=42]{macros/mac30.ijm}}
+%\end{frame}
 
 
 \only<article>{
